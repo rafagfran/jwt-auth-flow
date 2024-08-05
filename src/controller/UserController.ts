@@ -12,13 +12,16 @@ export class UserController {
   async store(req: Request, res: Response) {
     const { name, email, password } = req.body;
 
+    // Verifica se o email existe no bd
     const userExist = await prisma.user.findUnique({where: {email}})
 
     if(userExist){
       return res.json({error: "User already exist"})
     }
 
+    // Realiza a encriptação da senha com um salt round de 8
     const hash_password = await hash(password, 8)
+
     const user = await prisma.user.create({
       data: {
         name,
