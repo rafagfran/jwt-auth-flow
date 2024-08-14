@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { prisma } from "../utils/prisma"
 import { hash } from "bcryptjs";
 
@@ -30,6 +30,6 @@ export class UserController {
       }
     });
 
-    return res.json({ user })
+    return res.json({ user, message: "User created successfully" });
   }
 }
